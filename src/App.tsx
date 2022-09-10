@@ -340,6 +340,7 @@ function App() {
             <Input
               w={"55px"}
               h={50}
+              type="number"
               marginY={"auto"}
               color={"red.800"}
               marginRight={"2"}
