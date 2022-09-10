@@ -61,6 +61,10 @@ function App() {
     event: ChangeEvent<HTMLInputElement>,
     index: number
   ) {
+    if (index === 1) {
+      return;
+    }
+    
     let newGov = Object.assign([] as string[], gov);
     newGov[index] = event.target.value;
     setGov(newGov);
@@ -68,6 +72,7 @@ function App() {
     if (index === 0) {
       refGov1.current?.focus();
     }
+    
   }
 
   function handleSenChange(
