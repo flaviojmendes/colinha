@@ -145,14 +145,14 @@ function App() {
   return (
     <div className="w-screen h-full min-h-screen bg-red-200 text-center">
       <div className="flex flex-col bg-red-800 py-4">
-      <h1 className="text-white text-5xl font-main">
+      <h1 className="text-white text-3xl md:text-5xl font-main">
         Já sabe em quem vai votar?
       </h1>
-      <h2 className="text-white text-3xl font-main mt-2">
+      <h2 className="text-white text-xl md:text-3xl font-main mt-2">
         Anote, salve, imprima e não esqueça no dia da eleição!
       </h2>
 
-      <h2 className="text-white text-xl font-main mt-2">
+      <h2 className="text-white text-lg md:text-xl font-main mt-2">
         (essa é a ordem das urnas)
       </h2>
       </div>
