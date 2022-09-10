@@ -6,6 +6,12 @@ import html2canvas from "html2canvas";
 import ReactGA from "react-ga4";
 
 function App() {
+  ReactGA.initialize("G-ME7H2WXL4Q");
+  ReactGA.send({
+    hitType: "pageview",
+    page: window.location.pathname + window.location.search,
+  });
+
   const [gov, setGov] = useState(["", ""]);
   const [sen, setSen] = useState(["", "", ""]);
   const [depFed, setDepFed] = useState(["", "", "", ""]);
