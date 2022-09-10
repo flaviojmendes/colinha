@@ -143,17 +143,19 @@ function App() {
   }
 
   return (
-    <div className="w-screen h-full min-h-screen bg-red-200 text-center pt-6">
-      <h1 className="text-red-800 text-5xl font-main">
+    <div className="w-screen h-full min-h-screen bg-red-200 text-center">
+      <div className="flex flex-col bg-red-800 py-4">
+      <h1 className="text-white text-5xl font-main">
         Já sabe em quem vai votar?
       </h1>
-      <h2 className="text-red-800 text-3xl font-main mt-2">
+      <h2 className="text-white text-3xl font-main mt-2">
         Anote, salve, imprima e não esqueça no dia da eleição!
       </h2>
 
-      <h2 className="text-red-800 text-xl font-main mt-2">
+      <h2 className="text-white text-xl font-main mt-2">
         (essa é a ordem das urnas)
       </h2>
+      </div>
       <div className="flex flex-col md:ml-[25%]" ref={printRef}>
         <div className="flex flex-wrap mt-10">
           <span className="text-red-900 text-2xl my-auto mr-4  mb-2  w-screen md:w-[400px] text-center md:text-right">
