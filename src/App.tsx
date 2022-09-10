@@ -61,11 +61,12 @@ function App() {
     event: ChangeEvent<HTMLInputElement>,
     index: number
   ) {
-    if (index === 1) {
+    
+
+    let newGov = Object.assign([] as string[], gov);
+    if (index === 1 && event.target.value.length > 1) {
       return;
     }
-    
-    let newGov = Object.assign([] as string[], gov);
     newGov[index] = event.target.value;
     setGov(newGov);
 
