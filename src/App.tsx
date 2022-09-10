@@ -62,9 +62,6 @@ function App() {
     if (index === 0) {
       refGov1.current?.focus();
     }
-    if (index === 1) {
-      refSen0.current?.focus();
-    }
   }
 
   function handleSenChange(
@@ -82,7 +79,7 @@ function App() {
       refSen2.current?.focus();
     }
     if (index === 2) {
-      refDepFed0.current?.focus();
+      refGov0.current?.focus();
     }
   }
 
@@ -128,6 +125,9 @@ function App() {
     if (index === 3) {
       refDepDist4.current?.focus();
     }
+    if (index === 4) {
+      refSen0.current?.focus();
+    }
   }
 
   return (
@@ -151,6 +151,7 @@ function App() {
             <Input
               w={"55px"}
               h={50}
+              type="number"
               marginY={"auto"}
               marginRight={"2"}
               color={"red.800"}
@@ -167,6 +168,7 @@ function App() {
             <Input
               w={"55px"}
               h={50}
+              type="number"
               marginY={"auto"}
               color={"red.800"}
               marginRight={"2"}
@@ -183,6 +185,7 @@ function App() {
             <Input
               w={"55px"}
               h={50}
+              type="number"
               marginY={"auto"}
               color={"red.800"}
               className="font-main font-bold"
@@ -199,6 +202,7 @@ function App() {
             <Input
               w={"55px"}
               h={50}
+              type="number"
               marginY={"auto"}
               color={"red.800"}
               className="font-main font-bold"
@@ -221,6 +225,7 @@ function App() {
             <Input
               w={"55px"}
               h={50}
+              type="number"
               marginY={"auto"}
               marginRight={"2"}
               color={"red.800"}
@@ -237,6 +242,7 @@ function App() {
             <Input
               w={"55px"}
               h={50}
+              type="number"
               marginY={"auto"}
               color={"red.800"}
               marginRight={"2"}
@@ -253,6 +259,7 @@ function App() {
             <Input
               w={"55px"}
               h={50}
+              type="number"
               marginY={"auto"}
               color={"red.800"}
               className="font-main font-bold"
@@ -285,6 +292,7 @@ function App() {
             <Input
               w={"55px"}
               h={50}
+              type="number"
               marginY={"auto"}
               color={"red.800"}
               className="font-main font-bold"
@@ -308,6 +316,7 @@ function App() {
             <Input
               w={"55px"}
               h={50}
+              type="number"
               marginY={"auto"}
               marginRight={"2"}
               color={"red.800"}
@@ -340,6 +349,7 @@ function App() {
             <Input
               w={"55px"}
               h={50}
+              type="number"
               marginY={"auto"}
               color={"red.800"}
               className="font-main font-bold"
@@ -362,6 +372,9 @@ function App() {
             <Input
               w={"55px"}
               h={50}
+              type="number"
+              ref={refGov0}
+
               marginY={"auto"}
               marginRight={"2"}
               color={"red.800"}
@@ -377,6 +390,7 @@ function App() {
             <Input
               w={"55px"}
               h={50}
+              type="number"
               marginY={"auto"}
               color={"red.800"}
               className="font-main font-bold"
@@ -399,6 +413,7 @@ function App() {
             <Input
               w={"55px"}
               h={50}
+              type="number"
               marginY={"auto"}
               marginRight={"2"}
               color={"red.800"}
@@ -413,6 +428,7 @@ function App() {
             <Input
               w={"55px"}
               h={50}
+              type="number"
               marginY={"auto"}
               color={"red.800"}
               className="font-main font-bold"
