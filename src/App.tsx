@@ -282,6 +282,7 @@ function App() {
             <Input
               w={"55px"}
               h={50}
+              type="number"
               marginY={"auto"}
               color={"red.800"}
               className="font-main font-bold"
