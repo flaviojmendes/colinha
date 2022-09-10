@@ -460,6 +460,7 @@ function App() {
       </div>
       <Button
         marginTop={8}
+        marginBottom={8}
         colorScheme={"red"}
         fontSize={"2xl"}
         onClick={handleDownloadImage}
