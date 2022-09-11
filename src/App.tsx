@@ -32,6 +32,13 @@ function App() {
   const refDepDist4 = useRef<HTMLInputElement>(null);
   const printRef = useRef(null);
 
+  function handleClean() {
+    setGov(["", ""]);
+    setSen(["", "", ""]);
+    setDepFed(["", "", "", ""]);
+    setDepDist(["", "", "", "", ""]);
+  }
+
   async function handleDownloadImage() {
     ReactGA.event({
       category: "download",
@@ -162,7 +169,9 @@ function App() {
         <div className="grow"></div>
         <div id="area" className="py-8" ref={printRef}>
           <div className="flex flex-wrap mt-2">
-            <h1 className="text-center text-2xl font-sans text-white font-bold bg-red-800 w-[300px] m-auto rounded-lg py-2">colinha.net</h1>
+            <h1 className="text-center text-2xl font-main text-white  bg-red-800 w-[300px] m-auto rounded-lg py-2">
+              colinha.net
+            </h1>
           </div>
           <div className="flex flex-wrap mt-10">
             <span className="text-red-900 text-2xl my-auto mr-4  mb-2  w-screen md:w-[400px] text-center md:text-right">
@@ -469,6 +478,8 @@ function App() {
       <Button
         marginTop={8}
         marginBottom={24}
+        className="font-main"
+        fontWeight={"medium"}
         backgroundColor={"red.700"}
         textColor={"white"}
         _hover={{ bg: "red.600" }}
@@ -476,6 +487,20 @@ function App() {
         onClick={handleDownloadImage}
       >
         Imprimir/Salvar
+      </Button>
+      <Button
+        marginTop={8}
+        marginBottom={24}
+        marginLeft={2}
+        className="font-main"
+        fontWeight={"medium"}
+        backgroundColor={"red.700"}
+        textColor={"white"}
+        _hover={{ bg: "red.600" }}
+        fontSize={"2xl"}
+        onClick={handleClean}
+      >
+        Limpar
       </Button>
       <footer
         className="w-full h-16 bg-red-700 
