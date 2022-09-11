@@ -3,6 +3,8 @@ import "./App.css";
 import { Button, Input } from "@chakra-ui/react";
 import html2canvas from "html2canvas";
 import ReactGA from "react-ga4";
+import { candidates } from "./candidates";
+import { Select } from "@chakra-ui/react";
 
 function App() {
   ReactGA.initialize("G-ME7H2WXL4Q");
@@ -11,10 +13,41 @@ function App() {
     page: window.location.pathname + window.location.search,
   });
 
+  const ufs = [
+    "AC",
+    "AL",
+    "AP",
+    "AM",
+    "BA",
+    "CE",
+    "DF",
+    "ES",
+    "GO",
+    "MA",
+    "MS",
+    "MT",
+    "MG",
+    "PA",
+    "PB",
+    "PR",
+    "PE",
+    "PI",
+    "RJ",
+    "RN",
+    "RS",
+    "RO",
+    "RR",
+    "SC",
+    "SP",
+    "SE",
+    "TO",
+  ];
+
   const [gov, setGov] = useState(["", ""]);
   const [sen, setSen] = useState(["", "", ""]);
   const [depFed, setDepFed] = useState(["", "", "", ""]);
   const [depDist, setDepDist] = useState(["", "", "", "", ""]);
+  const [uf, setUf] = useState("");
 
   const refGov0 = useRef<HTMLInputElement>(null);
   const refGov1 = useRef<HTMLInputElement>(null);
@@ -30,13 +63,37 @@ function App() {
   const refDepDist2 = useRef<HTMLInputElement>(null);
   const refDepDist3 = useRef<HTMLInputElement>(null);
   const refDepDist4 = useRef<HTMLInputElement>(null);
+
+  const [selectedDepFed, setSelectedDepFed] = useState("");
+  const [selectedDepDist, setSelectedDepDist] = useState("");
+  const [selectedSen, setSelectedSen] = useState("");
+  const [selectedGov, setSelectedGov] = useState("");
   const printRef = useRef(null);
+
+  useEffect(() => {}, []);
+
+  function getCandidate(uf: string, text: string) {
+    let candidateName = "";
+    candidates
+      .filter((candidate) => candidate["SG_UF"] === uf)
+      .forEach((candidate) => {
+        if (candidate["NR_CANDIDATO"] === +text) {
+          candidateName = candidate["NM_URNA_CANDIDATO"];
+          return;
+        }
+      });
+    return candidateName;
+  }
 
   function handleClean() {
     setGov(["", ""]);
     setSen(["", "", ""]);
     setDepFed(["", "", "", ""]);
     setDepDist(["", "", "", "", ""]);
+    setSelectedDepDist("");
+    setSelectedDepFed("");
+    setSelectedGov("");
+    setSelectedSen("");
   }
 
   async function handleDownloadImage() {
@@ -77,6 +134,8 @@ function App() {
     if (event.target.value !== "") {
       if (index === 0) {
         refGov1.current?.focus();
+      } else if(index === 1) {
+        setSelectedGov(getCandidate(uf, newGov.join("")));
       }
     }
   }
@@ -97,6 +156,7 @@ function App() {
       }
       if (index === 2) {
         refGov0.current?.focus();
+        setSelectedSen(getCandidate(uf, newSen.join("")));
       }
     }
   }
@@ -120,6 +180,7 @@ function App() {
       }
       if (index === 3) {
         refDepDist0.current?.focus();
+        setSelectedDepFed(getCandidate(uf, newDepFed.join("")));
       }
     }
   }
@@ -147,12 +208,13 @@ function App() {
       }
       if (index === 4) {
         refSen0.current?.focus();
+        setSelectedDepDist(getCandidate(uf, newDepDist.join("")));
       }
     }
   }
 
   return (
-    <div className="w-screen h-full min-h-screen bg-red-200 text-center">
+    <div className="w-screen h-full min-h-screen bg-white text-center">
       <div className="flex flex-col bg-red-800 py-4">
         <h1 className="text-white text-3xl md:text-5xl font-main">
           Já sabe em quem vai votar?
@@ -169,9 +231,16 @@ function App() {
         <div className="grow"></div>
         <div id="area" className="py-8" ref={printRef}>
           <div className="flex flex-wrap mt-2">
-            <h1 className="text-center text-2xl font-main text-white  bg-red-800 w-[300px] m-auto rounded-lg py-2">
+            <h1 className="text-center text-2xl font-main text-white  bg-[#262730] w-[300px] m-auto rounded-lg py-2">
               colinha.net
             </h1>
+          </div>
+          <div className="text-center m-auto mt-2 w-[300px]">
+            <Select placeholder="Selecione UF" bg='red.800' color={'white'} size={"lg"} onChange={(e) => setUf(e.target.value)}>
+              {ufs.map(uf => {return(<option value={uf}>{uf}</option>)})}
+              
+              
+            </Select>
           </div>
           <div className="flex flex-wrap mt-10">
             <span className="text-red-900 text-2xl my-auto mr-4  mb-2  w-screen md:w-[400px] text-center md:text-right">
@@ -246,6 +315,9 @@ function App() {
                 borderColor={"red.800"}
               ></Input>
             </div>
+            <span className="text-xl text-red-800 justify-start m-auto font-semibold font-main min-w-[200px]">
+              {selectedDepFed}
+            </span>
           </div>
           <div className="flex flex-wrap mt-10">
             <span className="text-red-900 text-2xl my-auto mr-4  mb-2 w-screen md:w-[400px] text-center md:text-right">
@@ -338,6 +410,9 @@ function App() {
                 borderColor={"red.800"}
               ></Input>
             </div>
+            <span className="text-xl text-red-800 justify-start m-auto font-semibold font-main min-w-[200px]">
+              {selectedDepDist}
+            </span>
           </div>
           <div className="flex flex-wrap mt-10">
             <span className="text-red-900 text-2xl my-auto mr-4  mb-2  w-screen md:w-[400px] text-center md:text-right">
@@ -395,6 +470,9 @@ function App() {
                 borderColor={"red.800"}
               ></Input>
             </div>
+            <span className="text-xl text-red-800 justify-start m-auto font-semibold font-main min-w-[200px]">
+              {selectedSen}
+            </span>
           </div>
           <div className="flex flex-wrap mt-10">
             <span className="text-red-900 text-2xl my-auto mr-4  mb-2 w-screen md:w-[400px] text-center md:text-right">
@@ -435,6 +513,9 @@ function App() {
                 borderColor={"red.800"}
               ></Input>
             </div>
+            <span className="text-xl text-red-800 justify-start m-auto font-semibold font-main min-w-[200px]">
+              {selectedGov}
+            </span>
           </div>
           <div className="flex flex-wrap mt-10">
             <span className="text-red-900 text-2xl my-auto mr-4 mb-2 w-screen md:w-[400px] text-center md:text-right">
@@ -471,6 +552,9 @@ function App() {
                 borderColor={"red.800"}
               ></Input>
             </div>
+            <span className="text-xl text-red-800 justify-start m-auto font-semibold font-main min-w-[200px]">
+              {"LULA"}
+            </span>
           </div>
         </div>
         <div className="grow"></div>
@@ -480,7 +564,7 @@ function App() {
         marginBottom={24}
         className="font-main"
         fontWeight={"medium"}
-        backgroundColor={"red.700"}
+        backgroundColor={"#262730"}
         textColor={"white"}
         _hover={{ bg: "red.600" }}
         fontSize={"2xl"}
@@ -494,7 +578,7 @@ function App() {
         marginLeft={2}
         className="font-main"
         fontWeight={"medium"}
-        backgroundColor={"red.700"}
+        backgroundColor={"#262730"}
         textColor={"white"}
         _hover={{ bg: "red.600" }}
         fontSize={"2xl"}
@@ -503,7 +587,7 @@ function App() {
         Limpar
       </Button>
       <footer
-        className="w-full h-16 bg-red-700 
+        className="w-full h-16 bg-red-800 
             absolute left-0 bottom-0
             flex justify-center items-center
             text-white text-md
