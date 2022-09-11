@@ -4,6 +4,8 @@ import "./App.css";
 import { Button, Input } from "@chakra-ui/react";
 import html2canvas from "html2canvas";
 import ReactGA from "react-ga4";
+import * as htmlToImage from "html-to-image";
+import { toPng, toJpeg, toBlob, toPixelData, toSvg } from "html-to-image";
 
 function App() {
   ReactGA.initialize("G-ME7H2WXL4Q");
@@ -39,7 +41,20 @@ function App() {
       action: "download",
     });
 
+    // let obj = Object.assign(document.getElementById("area")!);
+
+    // obj.setAttribute("background", "#FFFFFF");
+    // htmlToImage
+    //   .toJpeg(obj, { quality: 0.95 })
+    //   .then(function (dataUrl) {
+    //     var link = document.createElement("a");
+    //     link.download = "my-image-name.jpeg";
+    //     link.href = dataUrl;
+    //     link.click();
+    //   });
+
     const element = printRef.current || document.body;
+
     const canvas = await html2canvas(element);
 
     const data = canvas.toDataURL();
@@ -61,8 +76,6 @@ function App() {
     event: ChangeEvent<HTMLInputElement>,
     index: number
   ) {
-    
-
     let newGov = Object.assign([] as string[], gov);
     if (index === 1 && event.target.value.length > 1) {
       return;
@@ -73,7 +86,6 @@ function App() {
     if (index === 0) {
       refGov1.current?.focus();
     }
-    
   }
 
   function handleSenChange(
@@ -145,18 +157,20 @@ function App() {
   return (
     <div className="w-screen h-full min-h-screen bg-red-200 text-center">
       <div className="flex flex-col bg-red-800 py-4">
-      <h1 className="text-white text-3xl md:text-5xl font-main">
-        Já sabe em quem vai votar?
-      </h1>
-      <h2 className="text-white text-xl md:text-3xl font-main mt-2">
-        Anote, salve, imprima e não esqueça no dia da eleição!
-      </h2>
+        <h1 className="text-white text-3xl md:text-5xl font-main">
+          Já sabe em quem vai votar?
+        </h1>
+        <h2 className="text-white text-xl md:text-3xl font-main mt-2">
+          Anote, salve, imprima e não esqueça no dia da eleição!
+        </h2>
 
-      <h2 className="text-white text-lg md:text-xl font-main mt-2">
-        (essa é a ordem das urnas)
-      </h2>
+        <h2 className="text-white text-lg md:text-xl font-main mt-2">
+          (essa é a ordem das urnas)
+        </h2>
       </div>
-      <div className="flex flex-col md:ml-[25%]" ref={printRef}>
+      <div className="flex">
+      <div className="grow"></div>
+      <div id="area" className="py-8" ref={printRef}>
         <div className="flex flex-wrap mt-10">
           <span className="text-red-900 text-2xl my-auto mr-4  mb-2  w-screen md:w-[400px] text-center md:text-right">
             Dep. Federal
@@ -390,7 +404,6 @@ function App() {
               h={50}
               type="number"
               ref={refGov0}
-
               marginY={"auto"}
               marginRight={"2"}
               color={"red.800"}
@@ -457,6 +470,8 @@ function App() {
             ></Input>
           </div>
         </div>
+      </div>
+      <div className="grow"></div>
       </div>
       <Button
         marginTop={8}
