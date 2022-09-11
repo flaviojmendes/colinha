@@ -1,11 +1,8 @@
-import { ChangeEvent, useRef, useState } from "react";
-import reactLogo from "./assets/react.svg";
+import { ChangeEvent, useEffect, useRef, useState } from "react";
 import "./App.css";
 import { Button, Input } from "@chakra-ui/react";
 import html2canvas from "html2canvas";
 import ReactGA from "react-ga4";
-import * as htmlToImage from "html-to-image";
-import { toPng, toJpeg, toBlob, toPixelData, toSvg } from "html-to-image";
 
 function App() {
   ReactGA.initialize("G-ME7H2WXL4Q");
@@ -41,18 +38,6 @@ function App() {
       action: "download",
     });
 
-    // let obj = Object.assign(document.getElementById("area")!);
-
-    // obj.setAttribute("background", "#FFFFFF");
-    // htmlToImage
-    //   .toJpeg(obj, { quality: 0.95 })
-    //   .then(function (dataUrl) {
-    //     var link = document.createElement("a");
-    //     link.download = "my-image-name.jpeg";
-    //     link.href = dataUrl;
-    //     link.click();
-    //   });
-
     const element = printRef.current || document.body;
 
     const canvas = await html2canvas(element);
@@ -82,9 +67,10 @@ function App() {
     }
     newGov[index] = event.target.value;
     setGov(newGov);
-
-    if (index === 0) {
-      refGov1.current?.focus();
+    if (event.target.value !== "") {
+      if (index === 0) {
+        refGov1.current?.focus();
+      }
     }
   }
 
@@ -95,15 +81,16 @@ function App() {
     let newSen = Object.assign([] as string[], sen);
     newSen[index] = event.target.value;
     setSen(newSen);
-
-    if (index === 0) {
-      refSen1.current?.focus();
-    }
-    if (index === 1) {
-      refSen2.current?.focus();
-    }
-    if (index === 2) {
-      refGov0.current?.focus();
+    if (event.target.value !== "") {
+      if (index === 0) {
+        refSen1.current?.focus();
+      }
+      if (index === 1) {
+        refSen2.current?.focus();
+      }
+      if (index === 2) {
+        refGov0.current?.focus();
+      }
     }
   }
 
@@ -114,18 +101,19 @@ function App() {
     let newDepFed = Object.assign([] as string[], depFed);
     newDepFed[index] = event.target.value;
     setDepFed(newDepFed);
-
-    if (index === 0) {
-      refDepFed1.current?.focus();
-    }
-    if (index === 1) {
-      refDepFed2.current?.focus();
-    }
-    if (index === 2) {
-      refDepFed3.current?.focus();
-    }
-    if (index === 3) {
-      refDepDist0.current?.focus();
+    if (event.target.value !== "") {
+      if (index === 0) {
+        refDepFed1.current?.focus();
+      }
+      if (index === 1) {
+        refDepFed2.current?.focus();
+      }
+      if (index === 2) {
+        refDepFed3.current?.focus();
+      }
+      if (index === 3) {
+        refDepDist0.current?.focus();
+      }
     }
   }
 
@@ -137,20 +125,22 @@ function App() {
     newDepDist[index] = event.target.value;
     setDepDist(newDepDist);
 
-    if (index === 0) {
-      refDepDist1.current?.focus();
-    }
-    if (index === 1) {
-      refDepDist2.current?.focus();
-    }
-    if (index === 2) {
-      refDepDist3.current?.focus();
-    }
-    if (index === 3) {
-      refDepDist4.current?.focus();
-    }
-    if (index === 4) {
-      refSen0.current?.focus();
+    if (event.target.value !== "") {
+      if (index === 0) {
+        refDepDist1.current?.focus();
+      }
+      if (index === 1) {
+        refDepDist2.current?.focus();
+      }
+      if (index === 2) {
+        refDepDist3.current?.focus();
+      }
+      if (index === 3) {
+        refDepDist4.current?.focus();
+      }
+      if (index === 4) {
+        refSen0.current?.focus();
+      }
     }
   }
 
@@ -169,319 +159,343 @@ function App() {
         </h2>
       </div>
       <div className="flex">
-      <div className="grow"></div>
-      <div id="area" className="py-8" ref={printRef}>
-        <div className="flex flex-wrap mt-10">
-          <span className="text-red-900 text-2xl my-auto mr-4  mb-2  w-screen md:w-[400px] text-center md:text-right">
-            Dep. Federal
-          </span>
-          <div className="m-auto md:flex md:flex-row md:ml-0 w-[350px]">
-            <Input
-              w={"55px"}
-              h={50}
-              type="number"
-              marginY={"auto"}
-              marginRight={"2"}
-              color={"red.800"}
-              className="font-main font-bold"
-              backgroundColor={"white"}
-              fontSize={"3xl"}
-              value={depFed[0]}
-              onChange={(e) => handleDepFedChange(e, 0)}
-              maxLength={1}
-              ref={refDepFed0}
-              borderWidth={"2px"}
-              borderColor={"red.800"}
-            ></Input>
-            <Input
-              w={"55px"}
-              h={50}
-              type="number"
-              marginY={"auto"}
-              color={"red.800"}
-              marginRight={"2"}
-              className="font-main font-bold"
-              backgroundColor={"white"}
-              fontSize={"3xl"}
-              value={depFed[1]}
-              onChange={(e) => handleDepFedChange(e, 1)}
-              maxLength={1}
-              ref={refDepFed1}
-              borderWidth={"2px"}
-              borderColor={"red.800"}
-            ></Input>
-            <Input
-              w={"55px"}
-              h={50}
-              type="number"
-              marginY={"auto"}
-              color={"red.800"}
-              className="font-main font-bold"
-              backgroundColor={"white"}
-              fontSize={"3xl"}
-              marginRight={"2"}
-              value={depFed[2]}
-              onChange={(e) => handleDepFedChange(e, 2)}
-              maxLength={1}
-              ref={refDepFed2}
-              borderWidth={"2px"}
-              borderColor={"red.800"}
-            ></Input>
-            <Input
-              w={"55px"}
-              h={50}
-              type="number"
-              marginY={"auto"}
-              color={"red.800"}
-              className="font-main font-bold"
-              backgroundColor={"white"}
-              fontSize={"3xl"}
-              value={depFed[3]}
-              onChange={(e) => handleDepFedChange(e, 3)}
-              maxLength={1}
-              ref={refDepFed3}
-              borderWidth={"2px"}
-              borderColor={"red.800"}
-            ></Input>
+        <div className="grow"></div>
+        <div id="area" className="py-8" ref={printRef}>
+          <div className="flex flex-wrap mt-2">
+            <h1 className="text-center text-2xl font-sans text-white font-bold bg-red-800 w-[300px] m-auto rounded-lg py-2">colinha.net</h1>
+          </div>
+          <div className="flex flex-wrap mt-10">
+            <span className="text-red-900 text-2xl my-auto mr-4  mb-2  w-screen md:w-[400px] text-center md:text-right">
+              Dep. Federal
+            </span>
+            <div className="m-auto md:flex md:flex-row md:ml-0 w-[350px]">
+              <Input
+                w={"55px"}
+                h={50}
+                type="number"
+                marginY={"auto"}
+                marginRight={"2"}
+                color={"red.800"}
+                className="font-main font-bold"
+                backgroundColor={"white"}
+                fontSize={"3xl"}
+                value={depFed[0]}
+                onChange={(e) => handleDepFedChange(e, 0)}
+                maxLength={1}
+                ref={refDepFed0}
+                borderWidth={"2px"}
+                borderColor={"red.800"}
+              ></Input>
+              <Input
+                w={"55px"}
+                h={50}
+                type="number"
+                marginY={"auto"}
+                color={"red.800"}
+                marginRight={"2"}
+                className="font-main font-bold"
+                backgroundColor={"white"}
+                fontSize={"3xl"}
+                value={depFed[1]}
+                onChange={(e) => handleDepFedChange(e, 1)}
+                maxLength={1}
+                ref={refDepFed1}
+                borderWidth={"2px"}
+                borderColor={"red.800"}
+              ></Input>
+              <Input
+                w={"55px"}
+                h={50}
+                type="number"
+                marginY={"auto"}
+                color={"red.800"}
+                className="font-main font-bold"
+                backgroundColor={"white"}
+                fontSize={"3xl"}
+                marginRight={"2"}
+                value={depFed[2]}
+                onChange={(e) => handleDepFedChange(e, 2)}
+                maxLength={1}
+                ref={refDepFed2}
+                borderWidth={"2px"}
+                borderColor={"red.800"}
+              ></Input>
+              <Input
+                w={"55px"}
+                h={50}
+                type="number"
+                marginY={"auto"}
+                color={"red.800"}
+                className="font-main font-bold"
+                backgroundColor={"white"}
+                fontSize={"3xl"}
+                value={depFed[3]}
+                onChange={(e) => handleDepFedChange(e, 3)}
+                maxLength={1}
+                ref={refDepFed3}
+                borderWidth={"2px"}
+                borderColor={"red.800"}
+              ></Input>
+            </div>
+          </div>
+          <div className="flex flex-wrap mt-10">
+            <span className="text-red-900 text-2xl my-auto mr-4  mb-2 w-screen md:w-[400px] text-center md:text-right">
+              Dep. Estadual/Distrital
+            </span>
+            <div className="m-auto md:flex md:flex-row md:ml-0 w-[350px]">
+              <Input
+                w={"55px"}
+                h={50}
+                type="number"
+                marginY={"auto"}
+                marginRight={"2"}
+                color={"red.800"}
+                className="font-main font-bold"
+                backgroundColor={"white"}
+                fontSize={"3xl"}
+                value={depDist[0]}
+                onChange={(e) => handleDepDistChange(e, 0)}
+                maxLength={1}
+                ref={refDepDist0}
+                borderWidth={"2px"}
+                borderColor={"red.800"}
+              ></Input>
+              <Input
+                w={"55px"}
+                h={50}
+                type="number"
+                marginY={"auto"}
+                color={"red.800"}
+                marginRight={"2"}
+                className="font-main font-bold"
+                backgroundColor={"white"}
+                fontSize={"3xl"}
+                value={depDist[1]}
+                onChange={(e) => handleDepDistChange(e, 1)}
+                maxLength={1}
+                ref={refDepDist1}
+                borderWidth={"2px"}
+                borderColor={"red.800"}
+              ></Input>
+              <Input
+                w={"55px"}
+                h={50}
+                type="number"
+                marginY={"auto"}
+                color={"red.800"}
+                className="font-main font-bold"
+                backgroundColor={"white"}
+                fontSize={"3xl"}
+                marginRight={"2"}
+                value={depDist[2]}
+                onChange={(e) => handleDepDistChange(e, 2)}
+                maxLength={1}
+                ref={refDepDist2}
+                borderWidth={"2px"}
+                borderColor={"red.800"}
+              ></Input>{" "}
+              <Input
+                w={"55px"}
+                h={50}
+                type="number"
+                marginY={"auto"}
+                color={"red.800"}
+                className="font-main font-bold"
+                backgroundColor={"white"}
+                fontSize={"3xl"}
+                marginRight={"2"}
+                value={depDist[3]}
+                onChange={(e) => handleDepDistChange(e, 3)}
+                maxLength={1}
+                ref={refDepDist3}
+                borderWidth={"2px"}
+                borderColor={"red.800"}
+              ></Input>
+              <Input
+                w={"55px"}
+                h={50}
+                type="number"
+                marginY={"auto"}
+                color={"red.800"}
+                className="font-main font-bold"
+                backgroundColor={"white"}
+                fontSize={"3xl"}
+                marginRight={"2"}
+                value={depDist[4]}
+                onChange={(e) => handleDepDistChange(e, 4)}
+                maxLength={1}
+                ref={refDepDist4}
+                borderWidth={"2px"}
+                borderColor={"red.800"}
+              ></Input>
+            </div>
+          </div>
+          <div className="flex flex-wrap mt-10">
+            <span className="text-red-900 text-2xl my-auto mr-4  mb-2  w-screen md:w-[400px] text-center md:text-right">
+              Senado
+            </span>
+            <div className="m-auto md:flex md:flex-row md:ml-0 w-[350px]">
+              <Input
+                w={"55px"}
+                h={50}
+                type="number"
+                marginY={"auto"}
+                marginRight={"2"}
+                color={"red.800"}
+                className="font-main font-bold"
+                backgroundColor={"white"}
+                fontSize={"3xl"}
+                value={sen[0]}
+                onChange={(e) => handleSenChange(e, 0)}
+                maxLength={1}
+                ref={refSen0}
+                borderWidth={"2px"}
+                borderColor={"red.800"}
+              ></Input>
+              <Input
+                w={"55px"}
+                h={50}
+                type="number"
+                marginY={"auto"}
+                color={"red.800"}
+                marginRight={"2"}
+                className="font-main font-bold"
+                backgroundColor={"white"}
+                fontSize={"3xl"}
+                value={sen[1]}
+                onChange={(e) => handleSenChange(e, 1)}
+                maxLength={1}
+                ref={refSen1}
+                borderWidth={"2px"}
+                borderColor={"red.800"}
+              ></Input>
+              <Input
+                w={"55px"}
+                h={50}
+                type="number"
+                marginY={"auto"}
+                color={"red.800"}
+                className="font-main font-bold"
+                backgroundColor={"white"}
+                fontSize={"3xl"}
+                value={sen[2]}
+                onChange={(e) => handleSenChange(e, 2)}
+                maxLength={1}
+                ref={refSen2}
+                borderWidth={"2px"}
+                borderColor={"red.800"}
+              ></Input>
+            </div>
+          </div>
+          <div className="flex flex-wrap mt-10">
+            <span className="text-red-900 text-2xl my-auto mr-4  mb-2 w-screen md:w-[400px] text-center md:text-right">
+              Governo
+            </span>
+            <div className="m-auto md:flex md:flex-row md:ml-0 w-[350px]">
+              <Input
+                w={"55px"}
+                h={50}
+                type="number"
+                ref={refGov0}
+                marginY={"auto"}
+                marginRight={"2"}
+                color={"red.800"}
+                className="font-main font-bold"
+                backgroundColor={"white"}
+                fontSize={"3xl"}
+                value={gov[0]}
+                onChange={(e) => handleGovChange(e, 0)}
+                maxLength={1}
+                borderWidth={"2px"}
+                borderColor={"red.800"}
+              ></Input>
+              <Input
+                w={"55px"}
+                h={50}
+                type="number"
+                marginY={"auto"}
+                color={"red.800"}
+                className="font-main font-bold"
+                backgroundColor={"white"}
+                fontSize={"3xl"}
+                value={gov[1]}
+                onChange={(e) => handleGovChange(e, 1)}
+                maxLength={1}
+                ref={refGov1}
+                borderWidth={"2px"}
+                borderColor={"red.800"}
+              ></Input>
+            </div>
+          </div>
+          <div className="flex flex-wrap mt-10">
+            <span className="text-red-900 text-2xl my-auto mr-4 mb-2 w-screen md:w-[400px] text-center md:text-right">
+              Presidente
+            </span>
+            <div className="m-auto md:flex md:flex-row md:ml-0 w-[350px]">
+              <Input
+                w={"55px"}
+                h={50}
+                type="number"
+                marginY={"auto"}
+                marginRight={"2"}
+                color={"red.800"}
+                className="font-main font-bold"
+                backgroundColor={"white"}
+                fontSize={"3xl"}
+                value={"1"}
+                maxLength={1}
+                borderWidth={"2px"}
+                borderColor={"red.800"}
+              ></Input>
+              <Input
+                w={"55px"}
+                h={50}
+                type="number"
+                marginY={"auto"}
+                color={"red.800"}
+                className="font-main font-bold"
+                backgroundColor={"white"}
+                fontSize={"3xl"}
+                value={"3"}
+                maxLength={1}
+                borderWidth={"2px"}
+                borderColor={"red.800"}
+              ></Input>
+            </div>
           </div>
         </div>
-        <div className="flex flex-wrap mt-10">
-          <span className="text-red-900 text-2xl my-auto mr-4  mb-2 w-screen md:w-[400px] text-center md:text-right">
-            Dep. Estadual/Distrital
-          </span>
-          <div className="m-auto md:flex md:flex-row md:ml-0 w-[350px]">
-            <Input
-              w={"55px"}
-              h={50}
-              type="number"
-              marginY={"auto"}
-              marginRight={"2"}
-              color={"red.800"}
-              className="font-main font-bold"
-              backgroundColor={"white"}
-              fontSize={"3xl"}
-              value={depDist[0]}
-              onChange={(e) => handleDepDistChange(e, 0)}
-              maxLength={1}
-              ref={refDepDist0}
-              borderWidth={"2px"}
-              borderColor={"red.800"}
-            ></Input>
-            <Input
-              w={"55px"}
-              h={50}
-              type="number"
-              marginY={"auto"}
-              color={"red.800"}
-              marginRight={"2"}
-              className="font-main font-bold"
-              backgroundColor={"white"}
-              fontSize={"3xl"}
-              value={depDist[1]}
-              onChange={(e) => handleDepDistChange(e, 1)}
-              maxLength={1}
-              ref={refDepDist1}
-              borderWidth={"2px"}
-              borderColor={"red.800"}
-            ></Input>
-            <Input
-              w={"55px"}
-              h={50}
-              type="number"
-              marginY={"auto"}
-              color={"red.800"}
-              className="font-main font-bold"
-              backgroundColor={"white"}
-              fontSize={"3xl"}
-              marginRight={"2"}
-              value={depDist[2]}
-              onChange={(e) => handleDepDistChange(e, 2)}
-              maxLength={1}
-              ref={refDepDist2}
-              borderWidth={"2px"}
-              borderColor={"red.800"}
-            ></Input>{" "}
-            <Input
-              w={"55px"}
-              h={50}
-              type="number"
-              marginY={"auto"}
-              color={"red.800"}
-              className="font-main font-bold"
-              backgroundColor={"white"}
-              fontSize={"3xl"}
-              marginRight={"2"}
-              value={depDist[3]}
-              onChange={(e) => handleDepDistChange(e, 3)}
-              maxLength={1}
-              ref={refDepDist3}
-              borderWidth={"2px"}
-              borderColor={"red.800"}
-            ></Input>
-            <Input
-              w={"55px"}
-              h={50}
-              type="number"
-              marginY={"auto"}
-              color={"red.800"}
-              className="font-main font-bold"
-              backgroundColor={"white"}
-              fontSize={"3xl"}
-              marginRight={"2"}
-              value={depDist[4]}
-              onChange={(e) => handleDepDistChange(e, 4)}
-              maxLength={1}
-              ref={refDepDist4}
-              borderWidth={"2px"}
-              borderColor={"red.800"}
-            ></Input>
-          </div>
-        </div>
-        <div className="flex flex-wrap mt-10">
-          <span className="text-red-900 text-2xl my-auto mr-4  mb-2  w-screen md:w-[400px] text-center md:text-right">
-            Senado
-          </span>
-          <div className="m-auto md:flex md:flex-row md:ml-0 w-[350px]">
-            <Input
-              w={"55px"}
-              h={50}
-              type="number"
-              marginY={"auto"}
-              marginRight={"2"}
-              color={"red.800"}
-              className="font-main font-bold"
-              backgroundColor={"white"}
-              fontSize={"3xl"}
-              value={sen[0]}
-              onChange={(e) => handleSenChange(e, 0)}
-              maxLength={1}
-              ref={refSen0}
-              borderWidth={"2px"}
-              borderColor={"red.800"}
-            ></Input>
-            <Input
-              w={"55px"}
-              h={50}
-              type="number"
-              marginY={"auto"}
-              color={"red.800"}
-              marginRight={"2"}
-              className="font-main font-bold"
-              backgroundColor={"white"}
-              fontSize={"3xl"}
-              value={sen[1]}
-              onChange={(e) => handleSenChange(e, 1)}
-              maxLength={1}
-              ref={refSen1}
-              borderWidth={"2px"}
-              borderColor={"red.800"}
-            ></Input>
-            <Input
-              w={"55px"}
-              h={50}
-              type="number"
-              marginY={"auto"}
-              color={"red.800"}
-              className="font-main font-bold"
-              backgroundColor={"white"}
-              fontSize={"3xl"}
-              value={sen[2]}
-              onChange={(e) => handleSenChange(e, 2)}
-              maxLength={1}
-              ref={refSen2}
-              borderWidth={"2px"}
-              borderColor={"red.800"}
-            ></Input>
-          </div>
-        </div>
-        <div className="flex flex-wrap mt-10">
-          <span className="text-red-900 text-2xl my-auto mr-4  mb-2 w-screen md:w-[400px] text-center md:text-right">
-            Governo
-          </span>
-          <div className="m-auto md:flex md:flex-row md:ml-0 w-[350px]">
-            <Input
-              w={"55px"}
-              h={50}
-              type="number"
-              ref={refGov0}
-              marginY={"auto"}
-              marginRight={"2"}
-              color={"red.800"}
-              className="font-main font-bold"
-              backgroundColor={"white"}
-              fontSize={"3xl"}
-              value={gov[0]}
-              onChange={(e) => handleGovChange(e, 0)}
-              maxLength={1}
-              borderWidth={"2px"}
-              borderColor={"red.800"}
-            ></Input>
-            <Input
-              w={"55px"}
-              h={50}
-              type="number"
-              marginY={"auto"}
-              color={"red.800"}
-              className="font-main font-bold"
-              backgroundColor={"white"}
-              fontSize={"3xl"}
-              value={gov[1]}
-              onChange={(e) => handleGovChange(e, 1)}
-              maxLength={1}
-              ref={refGov1}
-              borderWidth={"2px"}
-              borderColor={"red.800"}
-            ></Input>
-          </div>
-        </div>
-        <div className="flex flex-wrap mt-10">
-          <span className="text-red-900 text-2xl my-auto mr-4 mb-2 w-screen md:w-[400px] text-center md:text-right">
-            Presidente
-          </span>
-          <div className="m-auto md:flex md:flex-row md:ml-0 w-[350px]">
-            <Input
-              w={"55px"}
-              h={50}
-              type="number"
-              marginY={"auto"}
-              marginRight={"2"}
-              color={"red.800"}
-              className="font-main font-bold"
-              backgroundColor={"white"}
-              fontSize={"3xl"}
-              value={"1"}
-              maxLength={1}
-              borderWidth={"2px"}
-              borderColor={"red.800"}
-            ></Input>
-            <Input
-              w={"55px"}
-              h={50}
-              type="number"
-              marginY={"auto"}
-              color={"red.800"}
-              className="font-main font-bold"
-              backgroundColor={"white"}
-              fontSize={"3xl"}
-              value={"3"}
-              maxLength={1}
-              borderWidth={"2px"}
-              borderColor={"red.800"}
-            ></Input>
-          </div>
-        </div>
-      </div>
-      <div className="grow"></div>
+        <div className="grow"></div>
       </div>
       <Button
         marginTop={8}
-        marginBottom={8}
-        colorScheme={"red"}
+        marginBottom={24}
+        backgroundColor={"red.700"}
+        textColor={"white"}
+        _hover={{ bg: "red.600" }}
         fontSize={"2xl"}
         onClick={handleDownloadImage}
       >
         Imprimir/Salvar
       </Button>
+      <footer
+        className="w-full h-16 bg-red-700 
+            absolute left-0 bottom-0
+            flex justify-center items-center
+            text-white text-md
+            "
+      >
+        <span>
+          feito com ❤️ por{" "}
+          <a
+            href="https://twitter.com/flaviojmendes"
+            target={"_blank"}
+            className="text-red-300"
+          >
+            {" "}
+            flaviojmendes
+          </a>
+        </span>
+      </footer>
     </div>
   );
 }
