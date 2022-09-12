@@ -1,10 +1,19 @@
 import { ChangeEvent, useEffect, useRef, useState } from "react";
 import "./App.css";
-import { Button, Input } from "@chakra-ui/react";
+import { Button, Input, Link, useDisclosure } from "@chakra-ui/react";
 import html2canvas from "html2canvas";
 import ReactGA from "react-ga4";
 import { candidates } from "./candidates";
 import { Select } from "@chakra-ui/react";
+import {
+  Modal,
+  ModalOverlay,
+  ModalContent,
+  ModalHeader,
+  ModalFooter,
+  ModalBody,
+  ModalCloseButton,
+} from '@chakra-ui/react'
 
 function App() {
   ReactGA.initialize("G-ME7H2WXL4Q");
@@ -70,6 +79,9 @@ function App() {
   const [selectedGov, setSelectedGov] = useState("");
   const printRef = useRef(null);
 
+  const { isOpen, onOpen, onClose } = useDisclosure()
+
+
   useEffect(() => {}, []);
 
   function getCandidate(uf: string, text: string) {
@@ -134,9 +146,11 @@ function App() {
     if (event.target.value !== "") {
       if (index === 0) {
         refGov1.current?.focus();
-      } else if(index === 1) {
+      } else if (index === 1) {
         setSelectedGov(getCandidate(uf, newGov.join("")));
       }
+    } else {
+      setSelectedGov(getCandidate(uf, newGov.join("")));
     }
   }
 
@@ -158,6 +172,8 @@ function App() {
         refGov0.current?.focus();
         setSelectedSen(getCandidate(uf, newSen.join("")));
       }
+    } else {
+      setSelectedSen(getCandidate(uf, newSen.join("")));
     }
   }
 
@@ -182,6 +198,8 @@ function App() {
         refDepDist0.current?.focus();
         setSelectedDepFed(getCandidate(uf, newDepFed.join("")));
       }
+    } else {
+      setSelectedDepFed(getCandidate(uf, newDepFed.join("")));
     }
   }
 
@@ -210,20 +228,22 @@ function App() {
         refSen0.current?.focus();
         setSelectedDepDist(getCandidate(uf, newDepDist.join("")));
       }
+    } else {
+      setSelectedDepDist(getCandidate(uf, newDepDist.join("")));
     }
   }
 
   return (
-    <div className="w-screen h-full min-h-screen bg-white text-center">
+    <div className="w-full h-full min-h-screen bg-white text-center">
       <div className="flex flex-col bg-red-800 py-4">
-        <h1 className="text-white text-3xl md:text-5xl font-main">
+        <h1 className="text-white select-none cursor-default text-3xl md:text-5xl font-main">
           Já sabe em quem vai votar?
         </h1>
-        <h2 className="text-white text-xl md:text-3xl font-main mt-2">
+        <h2 className="text-white select-none cursor-default  text-xl md:text-3xl font-main mt-2">
           Anote, salve, imprima e não esqueça no dia da eleição!
         </h2>
 
-        <h2 className="text-white text-lg md:text-xl font-main mt-2">
+        <h2 className="text-white select-none cursor-default text-lg md:text-xl font-main mt-2">
           (essa é a ordem das urnas)
         </h2>
       </div>
@@ -236,10 +256,19 @@ function App() {
             </h1>
           </div>
           <div className="text-center m-auto mt-2 w-[300px]">
-            <Select placeholder="Selecione UF" bg='red.800' color={'white'} size={"lg"} onChange={(e) => setUf(e.target.value)}>
-              {ufs.map(uf => {return(<option value={uf}>{uf}</option>)})}
-              
-              
+            <Select
+              placeholder="Selecione UF"
+              bg="white"
+              borderWidth={2}
+              borderColor={"red.800"}
+              color={"red.800"}
+              fontWeight={"bold"}
+              size={"lg"}
+              onChange={(e) => setUf(e.target.value)}
+            >
+              {ufs.map((uf) => {
+                return <option value={uf}>{uf}</option>;
+              })}
             </Select>
           </div>
           <div className="flex flex-wrap mt-10">
@@ -536,6 +565,8 @@ function App() {
                 maxLength={1}
                 borderWidth={"2px"}
                 borderColor={"red.800"}
+                cursor={"default"}
+                
               ></Input>
               <Input
                 w={"55px"}
@@ -550,6 +581,7 @@ function App() {
                 maxLength={1}
                 borderWidth={"2px"}
                 borderColor={"red.800"}
+                cursor={"default"}
               ></Input>
             </div>
             <span className="text-xl text-red-800 justify-start m-auto font-semibold font-main min-w-[200px]">
@@ -602,9 +634,40 @@ function App() {
           >
             {" "}
             flaviojmendes
+            {" "}
           </a>
+          | 
+          <Link
+            onClick={onOpen}
+            className="text-red-300"
+          >
+            {" "}
+            Privacidade
+            {" "}
+          </Link>
         </span>
       </footer>
+
+      <Modal isOpen={isOpen} onClose={onClose}>
+        <ModalOverlay />
+        <ModalContent>
+          <ModalHeader>Privacidade</ModalHeader>
+          <ModalCloseButton />
+          <ModalBody>
+            <p><b>Nenhum</b> dado pessoal, ou número de candidato é capturado neste site.</p>
+            <p></p>
+            <p>Todas as ações, ou dados digitados pelo usuário são mantidos <b>somente no seu dispositivo.</b></p>
+            <p></p>
+            <p>A única métrica mantida é a quantidade de acessos para fins de melhoria de desempenho e estatísica.</p>
+          </ModalBody>
+
+          <ModalFooter>
+            <Button colorScheme='red' mr={3} onClick={onClose}>
+              Close
+            </Button>
+           </ModalFooter>
+        </ModalContent>
+      </Modal>
     </div>
   );
 }
